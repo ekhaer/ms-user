@@ -1,10 +1,11 @@
 const { MongoClient } = require('mongodb');
+const URI_DB = process.env.URI_DB;
 
 let database = null
 
 async function connect() {
     try {
-        const uri = 'mongodb://127.0.0.1:27017'
+        const uri = URI_DB
         const client = new MongoClient(uri, {useUnifiedTopology: true})
         await client.connect()
         const db = await client.db('dealljob');

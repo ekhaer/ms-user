@@ -1,8 +1,12 @@
-const bcrypt = require('bcrypt');
+var CryptoJS = require("crypto-js");
+const CRYPTO_SECRET = process.env.CRYPTO_SECRET;
+
 
 function hashPassw(plainPassw) {
-    return bcrypt.hashSync(plainPassw, 8);
+    let ciphertext = CryptoJS.AES.encrypt(plainPassw, CRYPTO_SECRET).toString();
+    return ciphertext
 }
+
 
 module.exports = {
     hashPassw

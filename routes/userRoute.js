@@ -11,7 +11,7 @@ router.use('/:id', authAdmin)
 router.put('/:id', UserController.update)
 router.delete('/:id', UserController.delete)
 
-router.use('/', authAdmin)
+// router.use('/', authAdmin)
 router.post('/', UserController.add)
 router.get('/', UserController.findAll)
 

@@ -3,7 +3,6 @@ const Users = require('../models/users')
 class ValidateController {
     static async isValid(req,res,next) {
         try {
-            console.log("login", req.body)
             let data = req.body
             //find username first
              const users = await Users.findByName(data.username)
