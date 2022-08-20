@@ -1,16 +1,16 @@
 const Users = require('../models/users')
+const { hashPassw } = require('../helper/bcrypt');
 
 class UserController {
     static async findAll(req, res, next) {
         try {
-            let queue;
+            let users;
             if (req.query.name) {
                 const name = req.query.name;
-                // queue = await Queue.findByName(name)
             } else {
-                queue = await Users.find()
+                users = await Users.find()
             }
-            res.status(200).json(queue)
+            res.status(200).json(users)
         } catch (error) {
             console.log(error)
             next(error)
@@ -20,6 +20,7 @@ class UserController {
     static async add(req, res, next) {
         try {
             let newUser = req.body
+            newUser.password = hashPassw(newUser.password);
             const user = await Users.add(newUser)
             res.status(201).json(user)
         } catch (error) {

@@ -6,9 +6,9 @@ class Users {
         return getDb().collection('users').find().toArray()
     }
 
-    // static async findByName(name) {
-    //     return getDb().collection('users').find({"name" : {'$regex': name}}).toArray()
-    // }
+    static async findByName(name) {
+        return getDb().collection('users').find({"username" : {'$regex': name}}).toArray()
+    }
 
     static async findById(id) {
         return getDb().collection('users').findOne({"_id" : ObjectId(id)})

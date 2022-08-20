@@ -1,10 +1,13 @@
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
+}
 const express = require('express')
 const {connect} = require('./config/config')
 const app = express()
 const PORT = process.env.PORT || 4001
-const UserRouter = require('./routes/userRoute')
 const cors = require('cors')
 const errorHandler = require('./middlewares/errorHandler');
+const router = require('./routes');
 
 app.use(express.urlencoded({ extended : false }))
 app.use(express.json())
@@ -15,7 +18,7 @@ app.get('/', async (req, res) => {
     res.send('okei')
 })
 
-app.use('/users', UserRouter)
+app.use(router)
 app.use(errorHandler)
 
 connect()
