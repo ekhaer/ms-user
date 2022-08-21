@@ -4,10 +4,11 @@ const baseUrl = process.env.SERVICE_AUTH_BASE_URL;
 async function authenticate(req, res, next) {
     console.log("==AUTHENTICATION==");
     try {
-        const { access_token } = req.headers;
-        let data = { access_token }
+        const { access_token, refresh_token } = req.headers;
+        let data = { access_token, refresh_token }
         const request = `${baseUrl}/verify`;
         const response = await axios.post(request, data);
+
         if (response.data) {
             req.loggedUser = {
                 _id : response.data._id,
@@ -19,7 +20,11 @@ async function authenticate(req, res, next) {
             next(err)
         }
     } catch (err) {
-        next(err)
+        if (err.response.data) {
+            next(err.response.data)
+        } else {
+            next(err)
+        }
     }
 }
 module.exports = authenticate;
